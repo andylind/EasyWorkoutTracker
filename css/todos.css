@@ -17,6 +17,7 @@
 
 #todo-list {
   margin: 0 0 0 5px;
+  color: #333;
 }
 
 #todo-list li {
@@ -29,6 +30,7 @@
 
 #todo-list li:last-child {
 	border-bottom: none;
+	margin-bottom: 15px;
 }
 
 #todo-list .destroy {
@@ -53,5 +55,26 @@
 #todo-count span {
 	font-weight: bold;
 }
+
+h5 {
+  margin-top: 20px;
+}
+
+.input-append { 
+  margin-bottom: 25px;
+}
+
+/* Chart CSS */
+svg {
+   padding-bottom: 10px;  
+}
+path {
+	stroke: steelblue;
+	stroke-width: 3;
+	fill: none;
+}
+
+
+
 
 

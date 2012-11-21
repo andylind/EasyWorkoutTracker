@@ -40,7 +40,7 @@
     <div class="row-fluid">
       <div id="todoapp">
         <div class="input-append">
-          <input id="new-weight" type="text" placeholder="lbs lifted">
+          <input id="new-weight" type="text" placeholder="Weight (lbs)">
           <input id="new-sets" type="number" placeholder="# of sets">
           <input id="new-reps" type="number" placeholder="# of reps">
           <button class="btn btn-success add" type="button"><i class="icon-plus icon-white"></i> Add</button>
