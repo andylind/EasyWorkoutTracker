@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Easy Workout Tracker</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+  </style>
+  <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
+  <link rel="stylesheet" href="css/todos.css"/>
+  
+</head>
+
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Easy Workout Tracker</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="todoapp">
+        <div class="input-append">
+          <input id="new-weight" type="text" placeholder="Weight">
+          <input id="new-sets" type="number" placeholder="# of sets">
+          <input id="new-reps" type="number" placeholder="# of reps">
+          <button class="btn btn-success add" type="button"><i class="icon-plus icon-white"></i> Add</button>
+        </div>
+        <ul id="todo-list"></ul>
+        <footer>
+          <div id="todo-count"></div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  
+  <script src="js/json2.js"></script>
+  <script src="js/jquery-1.7.1.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/backbone-localstorage.js"></script>
+  <script src="js/todos.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <!-- Templates -->
+  <script type="text/template" id="item-template">
+    <div class="view">
+      <label>Lifted <%- title %>lbs in <%- sets %> sets of <%- reps %> reps </label>
+      <a class="destroy"><i class="icon-remove"></i></a>
+    </div>
+  </script>
+
+  <script type="text/template" id="stats-template">
+    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> </div>
+  </script>
+
+  </body>
+</html>
