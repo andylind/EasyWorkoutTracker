@@ -1,60 +1,60 @@
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
-  // Todo Model
-  var Todo = Backbone.Model.extend({
-    // Default attributes for the todo item.
+  // Workout Model
+  var Workout = Backbone.Model.extend({
+    // Default attributes for the workout item.
     defaults: function() {
       return {
-        title: "empty todo...",
+        title: "empty workout...",
         sets: 0,
         reps: 0,
-        order: Todos.nextOrder(),
+        order: Workouts.nextOrder(),
       };
     },
   });
 
-  // Todo Collection
-  var TodoList = Backbone.Collection.extend({
+  // Workout Collection
+  var WorkoutList = Backbone.Collection.extend({
 
     // Reference to this collection's model.
-    model: Todo,
+    model: Workout,
 
-    // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+    // Save all of the workout items under the `"workouts-backbone"` namespace.
+    localStorage: new Backbone.LocalStorage("workouts-backbone"),
 
-    // Filter down the list of all todo items that are finished.
+    // Filter down the list of all workout items that are finished.
     done: function() {
-      return this.filter(function(todo){ return todo.get('done'); });
+      return this.filter(function(workout){ return workout.get('done'); });
     },
 
-    // Filter down the list to only todo items that are still not finished.
+    // Filter down the list to only workout items that are still not finished.
     remaining: function() {
       return this.without.apply(this, this.done());
     },
 
-    // We keep the Todos in sequential order, despite being saved by unordered
+    // We keep the Workouts in sequential order, despite being saved by unordered
     // GUID in the database. This generates the next order number for new items.
     nextOrder: function() {
       if (!this.length) return 1;
       return this.last().get('order') + 1;
     },
 
-    // Todos are sorted by their original insertion order.
-    comparator: function(todo) {
-      return todo.get('order');
+    // Workouts are sorted by their original insertion order.
+    comparator: function(workout) {
+      return workout.get('order');
     }
 
   });
 
-  // Create our global collection of **Todos**.
-  var Todos = new TodoList;
+  // Create our global collection of **Workouts**.
+  var Workouts = new WorkoutList;
 
-  // Todo Item View
+  // Workout Item View
   // --------------
 
-  // The DOM element for a todo item...
-  var TodoView = Backbone.View.extend({
+  // The DOM element for a workout item...
+  var WorkoutView = Backbone.View.extend({
 
     //... is a list tag.
     tagName:  "li",
@@ -68,14 +68,14 @@ $(function(){
       "keypress .edit"  : "updateOnEnter",
     },
 
-    // The TodoView listens for changes to its model, re-rendering. Since there's
-    // a one-to-one correspondence between a **Todo** and a **TodoView** in this
+    // The WorkoutView listens for changes to its model, re-rendering. Since there's
+    // a one-to-one correspondence between a **Workout** and a **WorkoutView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
       this.model.on('destroy', this.remove, this);
     },
 
-    // Re-render the titles of the todo item.
+    // Re-render the titles of the workout item.
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       return this;
@@ -89,7 +89,7 @@ $(function(){
     // Remove the item, destroy the model.
     clear: function() {
       this.model.destroy();
-       redraw(Todos);
+       redraw(Workouts);
     }
 
   });
@@ -102,7 +102,7 @@ $(function(){
 
     // Instead of generating a new element, bind to the existing skeleton of
     // the App already present in the HTML.
-    el: $("#todoapp"),
+    el: $("#workoutapp"),
 
     // Our template for the line of statistics at the bottom of the app.
     statsTemplate: _.template($('#stats-template').html()),
@@ -115,34 +115,34 @@ $(function(){
       "click .add":          "addNew"
     },
 
-    // At initialization we bind to the relevant events on the `Todos`
+    // At initialization we bind to the relevant events on the `Workouts`
     // collection, when items are added or changed. Kick things off by
-    // loading any preexisting todos that might be saved in *localStorage*.
+    // loading any preexisting workouts that might be saved in *localStorage*.
     initialize: function() {
 
       this.inputWeight = this.$("#new-weight");
       this.inputSets = this.$("#new-sets");
       this.inputReps = this.$("#new-reps");
 
-      Todos.on('add', this.addOne, this);
-      Todos.on('reset', this.addAll, this);
-      Todos.on('all', this.render, this);
+      Workouts.on('add', this.addOne, this);
+      Workouts.on('reset', this.addAll, this);
+      Workouts.on('all', this.render, this);
 
       this.footer = this.$('footer');
       this.main = $('#main');
 
-      Todos.fetch();
+      Workouts.fetch();
       
-      chartinit(Todos);
+      chartinit(Workouts);
     },
 
     // Re-rendering the App just means refreshing the statistics -- the rest
     // of the app doesn't change.
     render: function() {
-      var done = Todos.done().length;
-      var remaining = Todos.remaining().length;
+      var done = Workouts.done().length;
+      var remaining = Workouts.remaining().length;
 
-      if (Todos.length) {
+      if (Workouts.length) {
         this.main.show();
         this.footer.show();
         this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
@@ -154,23 +154,23 @@ $(function(){
 
     },
 
-    // Add a single todo item to the list by creating a view for it, and
+    // Add a single workout item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
-    addOne: function(todo) {
-      var view = new TodoView({model: todo});
-      this.$("#todo-list").append(view.render().el);
+    addOne: function(workout) {
+      var view = new WorkoutView({model: workout});
+      this.$("#workout-list").append(view.render().el);
     },
 
-    // Add all items in the **Todos** collection at once.
+    // Add all items in the **Workouts** collection at once.
     addAll: function() {
-      Todos.each(this.addOne);
+      Workouts.each(this.addOne);
     },
     
     addNew: function(e) {
       if (!this.inputWeight.val()) return;
       if (!this.inputSets.val()) return;
       if (!this.inputReps.val()) return;
-      Todos.create({
+      Workouts.create({
         title: this.inputWeight.val(),
         sets: this.inputSets.val(), 
         reps: this.inputReps.val()
@@ -179,10 +179,10 @@ $(function(){
       this.inputSets.val('');
       this.inputReps.val('');
       
-      redraw(Todos);
+      redraw(Workouts);
     },
     
-    // If you hit return in the main input field, create new **Todo** model,
+    // If you hit return in the main input field, create new **Workout** model,
     // persisting it to *localStorage*.
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
@@ -198,13 +198,13 @@ $(function(){
     
     
     
-    var chartinit = function(todos) {
+    var chartinit = function(workouts) {
         
         width = 380;
         height = 200;
         
         data = [];
-        for(var i = 0; i < todos.length; i++) data[i] = todos.at(i).get("sets");
+        for(var i = 0; i < workouts.length; i++) data[i] = workouts.at(i).get("sets");
         // Create the initial SVG container for the chart
         chart.svg = d3.select('#chart')
             .append('svg')
@@ -262,12 +262,12 @@ $(function(){
        
       };
 
-      var redraw = function(todos) {
+      var redraw = function(workouts) {
         width = 380;
         height = 200;
         
         data = [];
-        for(var i = 0; i < todos.length; i++) data[i] = todos.at(i).get("sets");
+        for(var i = 0; i < workouts.length; i++) data[i] = workouts.at(i).get("sets");
         // update the x and y scales with the new data
         chart.x = d3.scale.linear()
             .domain([0, data.length])

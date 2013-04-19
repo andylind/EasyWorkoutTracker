@@ -1,26 +1,10 @@
-#new-weight, #new-sets, #new-reps {
-  width:5em;
-  -webkit-border-radius: 0 0 0 0;
-	-moz-border-radius: 0 0 0 0;
-	-ms-border-radius: 0 0 0 0;
-	-o-border-radius: 0 0 0 0;
-	border-radius: 0 0 0 0;
-}
-
-#new-weight {
-  -webkit-border-radius: 4px 0 0 4px;
-	-moz-border-radius: 4px 0 0 4px;
-	-ms-border-radius: 4px 0 0 4px;
-	-o-border-radius: 4px 0 0 4px;
-	border-radius: 4px 0 0 4px;
-}
-
-#todo-list {
+#workout-list {
   margin: 0 0 0 5px;
   color: #333;
+  max-width: 500px;
 }
 
-#todo-list li {
+#workout-list li {
 	padding: 18px 20px 18px 0;
 	position: relative;
 	list-style:none;
@@ -28,12 +12,12 @@
 	border-bottom: 1px solid #cccccc;
 }
 
-#todo-list li:last-child {
+#workout-list li:last-child {
 	border-bottom: none;
 	margin-bottom: 15px;
 }
 
-#todo-list .destroy {
+#workout-list .destroy {
   padding: 1px 5px 5px 5px;
 	position: absolute;
 	right: 5px;
@@ -41,7 +25,7 @@
 
 }
 
-#todoapp footer {
+#workoutapp footer {
 	display: none;
 	margin: 0 -20px -20px -20px;
 	overflow: hidden;
@@ -52,7 +36,7 @@
 	line-height: 37px;
 }
 
-#todo-count span {
+#workout-count span {
 	font-weight: bold;
 }
 
@@ -60,9 +44,23 @@ h5 {
   margin-top: 20px;
 }
 
-.input-append { 
-  margin-bottom: 25px;
+.form-horizontal {
+  border: 1px solid #DDDDDD;
+  color: #9DA0A4;
+  max-width: 400px;
+  padding: 10px 20px 10px 10px;
+  float: left;
+  margin-top:20px;
 }
+
+.add {
+  float: right;
+}
+
+.clear {
+  clear:both;
+}
+
 
 /* Chart CSS */
 svg {
