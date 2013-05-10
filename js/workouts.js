@@ -204,7 +204,10 @@ $(function(){
         height = 200;
         
         data = [];
-        for(var i = 0; i < workouts.length; i++) data[i] = workouts.at(i).get("sets");
+        for(var i = 0; i < workouts.length; i++) data[i] = 
+          workouts.at(i).get("title") 
+          * workouts.at(i).get("reps")
+          * workouts.at(i).get("sets");
         // Create the initial SVG container for the chart
         chart.svg = d3.select('#chart')
             .append('svg')
@@ -267,7 +270,9 @@ $(function(){
         height = 200;
         
         data = [];
-        for(var i = 0; i < workouts.length; i++) data[i] = workouts.at(i).get("sets");
+        for(var i = 0; i < workouts.length; i++) data[i] =           workouts.at(i).get("title") 
+          * workouts.at(i).get("reps")
+          * workouts.at(i).get("sets");
         // update the x and y scales with the new data
         chart.x = d3.scale.linear()
             .domain([0, data.length])
