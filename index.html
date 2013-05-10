@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Easy Workout Tracker</title>
@@ -14,7 +13,6 @@
   <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
   <link rel="stylesheet" href="css/workouts.css"/>
 </head>
-
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -58,26 +56,26 @@
       </div>
     </div>
   </div>
-  
   <script src="js/d3.v2.min.js"></script>
   <script src="js/json2.js"></script>
   <script src="js/jquery-1.7.1.js"></script>
   <script src="js/underscore.js"></script>
   <script src="js/backbone-min.js"></script>
   <script src="js/backbone-localstorage.js"></script>
+  <script src="js/workout-graphs.js"></script>
   <script src="js/workouts.js"></script>
   <script src="js/bootstrap.min.js"></script>
 
   <!-- Templates -->
   <script type="text/template" id="item-template">
     <div class="view">
-      <label>Lifted <%- title %>lbs in <%- sets %> sets of <%- reps %> reps </label>
+      <label>Lifted <%- weight %>lbs in <%- sets %> sets of <%- reps %> reps </label>
       <a class="destroy"><i class="icon-remove"></i></a>
     </div>
   </script>
 
   <script type="text/template" id="stats-template">
-    <div class="workout-count"><b><%= remaining %></b> <%= remaining == 1 ? 'workout' : 'workouts' %> tracked</div>
+    <div class="workout-count"><b><%= total %></b> <%= total == 1 ? 'workout' : 'workouts' %> tracked</div>
   </script>
 
   </body>
